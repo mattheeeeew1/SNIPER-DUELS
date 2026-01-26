@@ -20,11 +20,6 @@ local MAX_AIM_DISTANCE = 500
 local AIM_FOV = 100 -- Reduced circle size (was 200)
 local AIM_OFFSET = Vector3.new(0, 0, 0) -- No offset needed
 
-local FOV_CIRCLE_COLOR = Color3.fromRGB(255, 255, 255)
-local FOV_CIRCLE_THICKNESS = 2
-local FOV_CIRCLE_TRANSPARENCY = 0.5
-local FOV_CIRCLE_FILLED = false
-
 --// STORAGE
 local function GetStorage()
     local s = workspace.Terrain:FindFirstChild(STORAGE_NAME)
@@ -34,26 +29,6 @@ local function GetStorage()
         s.Parent = workspace.Terrain
     end
     return s
-end
-
---// FOV CIRCLE
-local FOVCircle = Drawing.new("Circle")
-FOVCircle.Thickness = FOV_CIRCLE_THICKNESS
-FOVCircle.NumSides = 50
-FOVCircle.Radius = AIM_FOV
-FOVCircle.Filled = FOV_CIRCLE_FILLED
-FOVCircle.Color = FOV_CIRCLE_COLOR
-FOVCircle.Transparency = FOV_CIRCLE_TRANSPARENCY
-FOVCircle.Visible = false
-
-local function UpdateFOVCircle()
-    if AIMBOT_ENABLED then
-        local mousePos = UserInputService:GetMouseLocation()
-        FOVCircle.Position = mousePos
-        FOVCircle.Visible = true
-    else
-        FOVCircle.Visible = false
-    end
 end
 
 --// TEAM CHECK (IMPROVED FOR 1v1)
@@ -147,8 +122,6 @@ local function StartAimbot()
     aimbotConnection = RunService.RenderStepped:Connect(function()
         if not AIMBOT_ENABLED then return end
 
-        UpdateFOVCircle()
-
         local target = GetClosestEnemy()
         if target and UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
             -- Only aim when right-clicking (holding right mouse button)
@@ -178,7 +151,6 @@ local function StopAimbot()
         aimbotConnection:Disconnect()
         aimbotConnection = nil
     end
-    FOVCircle.Visible = false
 end
 
 --// UI
