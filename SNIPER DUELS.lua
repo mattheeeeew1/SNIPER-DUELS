@@ -1,26 +1,23 @@
---// SERVICES
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local Camera = workspace.CurrentCamera
 
---// SETTINGS
 local ESP_ENABLED = false
 local AIMBOT_ENABLED = false
 
-local FILL_COLOR_ENEMY = Color3.fromRGB(128, 128, 128) -- GRAY for enemies
+local FILL_COLOR_ENEMY = Color3.fromRGB(128, 128, 128)
 local FILL_COLOR_ALLY = Color3.fromRGB(0, 255, 0)
 local FILL_COLOR_NEUTRAL = Color3.fromRGB(255, 255, 255)
 
 local STORAGE_NAME = "System_Render_Cache"
 
-local AIM_PART = "UpperTorso" -- Changed to UpperTorso
-local AIM_SMOOTHNESS = 0.18 -- Smoother for natural look
+local AIM_PART = "UpperTorso"
+local AIM_SMOOTHNESS = 0.35
 local MAX_AIM_DISTANCE = 500
-local AIM_FOV = 100 -- Reduced circle size (was 200)
-local AIM_OFFSET = Vector3.new(0, 0, 0) -- No offset needed
+--local AIM_FOV = 100
+local AIM_OFFSET = Vector3.new(0, 0, 0)
 
---// STORAGE
 local function GetStorage()
     local s = workspace.Terrain:FindFirstChild(STORAGE_NAME)
     if not s then
@@ -31,21 +28,17 @@ local function GetStorage()
     return s
 end
 
---// TEAM CHECK (IMPROVED FOR 1v1)
 local function IsAlly(player)
     local lp = Players.LocalPlayer
     if player == lp then return true end
 
-    -- If no teams exist or either player has no team, treat as enemy (for 1v1)
     if not player.Team or not lp.Team then
-        return false -- Not an ally, so treat as enemy
+        return false
     end
 
-    -- Check if same team
     return player.Team == lp.Team
 end
 
---// ESP UPDATE
 local function UpdateESP()
     local storage = GetStorage()
 
@@ -81,7 +74,6 @@ local function UpdateESP()
     end
 end
 
---// AIMBOT TARGET SELECTION (ENEMIES ONLY)
 local function GetClosestEnemy()
     local localPlayer = Players.LocalPlayer
     local closestPart = nil
@@ -91,7 +83,6 @@ local function GetClosestEnemy()
     for _, player in ipairs(Players:GetPlayers()) do
         if player ~= localPlayer and player.Character then
             if not IsAlly(player) then
-                -- Target the UpperTorso (R15) or Torso (R6)
                 local targetPart = player.Character:FindFirstChild(AIM_PART) or player.Character:FindFirstChild("Torso")
                 if targetPart then
                     local aimPos = targetPart.Position + AIM_OFFSET
@@ -114,7 +105,6 @@ local function GetClosestEnemy()
     return closestPart
 end
 
---// AIMBOT LOOP (IMPROVED)
 local aimbotConnection
 local function StartAimbot()
     if aimbotConnection then return end
@@ -124,15 +114,13 @@ local function StartAimbot()
 
         local target = GetClosestEnemy()
         if target and UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
-            -- Only aim when right-clicking (holding right mouse button)
             local camPos = Camera.CFrame.Position
             local targetPos = target.Position + AIM_OFFSET
             
-            -- Calculate velocity prediction (basic)
             local targetVelocity = target.Parent:FindFirstChild("HumanoidRootPart")
             if targetVelocity and targetVelocity.AssemblyLinearVelocity then
                 local distance = (targetPos - camPos).Magnitude
-                local bulletSpeed = 1000 -- Adjust based on your game
+                local bulletSpeed = 1000
                 local timeToHit = distance / bulletSpeed
                 targetPos = targetPos + (targetVelocity.AssemblyLinearVelocity * timeToHit * 0.3)
             end
@@ -153,7 +141,6 @@ local function StopAimbot()
     end
 end
 
---// UI
 local ScreenGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
 ScreenGui.Name = "CombatHub"
 ScreenGui.ResetOnSpawn = false
@@ -204,7 +191,6 @@ Info.Font = Enum.Font.Gotham
 Info.TextSize = 11
 Info.TextColor3 = Color3.fromRGB(200,200,200)
 
---// TOGGLES
 local function ToggleESP()
     ESP_ENABLED = not ESP_ENABLED
     ESPButton.Text = ESP_ENABLED and "ESP: ON" or "ESP: OFF"
@@ -229,7 +215,6 @@ UserInputService.InputBegan:Connect(function(input, gp)
     end
 end)
 
---// ESP LOOP
 task.spawn(function()
     while true do
         pcall(UpdateESP)
