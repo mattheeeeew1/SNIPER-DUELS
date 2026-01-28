@@ -6,9 +6,9 @@ local Camera = workspace.CurrentCamera
 local ESP_ENABLED = false
 local AIMBOT_ENABLED = false
 
-local FILL_COLOR_ENEMY = Color3.fromRGB(128, 128, 128)
+local FILL_COLOR_ENEMY = Color3.fromRGB(64, 64, 64)
 local FILL_COLOR_ALLY = Color3.fromRGB(0, 255, 0)
-local FILL_COLOR_NEUTRAL = Color3.fromRGB(255, 255, 255)
+local FILL_COLOR_NEUTRAL = Color3.fromRGB(64, 64, 64)
 
 local STORAGE_NAME = "System_Render_Cache"
 
@@ -186,7 +186,7 @@ local Info = Instance.new("TextLabel", MainFrame)
 Info.Size = UDim2.new(1,0,0,20)
 Info.Position = UDim2.new(0,0,0.75,0)
 Info.BackgroundTransparency = 1
-Info.Text = "K=Toggle | RMB=Aim"
+Info.Text = "Z=Toggle | RMB=Aim"
 Info.Font = Enum.Font.Gotham
 Info.TextSize = 11
 Info.TextColor3 = Color3.fromRGB(200,200,200)
