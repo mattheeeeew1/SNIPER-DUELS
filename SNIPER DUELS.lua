@@ -14,8 +14,8 @@ local STORAGE_NAME = "System_Render_Cache"
 
 local AIM_PART = "UpperTorso"
 local AIM_SMOOTHNESS = 0.50
-local MAX_AIM_DISTANCE = 500
-local AIM_FOV = 100
+local MAX_AIM_DISTANCE = 400
+local AIM_FOV = 80
 local AIM_OFFSET = Vector3.new(0, 0, 0)
 
 local function GetStorage()
