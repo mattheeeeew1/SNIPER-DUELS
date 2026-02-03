@@ -120,7 +120,7 @@ local function StartAimbot()
             local targetVelocity = target.Parent:FindFirstChild("HumanoidRootPart")
             if targetVelocity and targetVelocity.AssemblyLinearVelocity then
                 local distance = (targetPos - camPos).Magnitude
-                local bulletSpeed = 1000
+                local bulletSpeed = 3000
                 local timeToHit = distance / bulletSpeed
                 targetPos = targetPos + (targetVelocity.AssemblyLinearVelocity * timeToHit * 0.3)
             end
