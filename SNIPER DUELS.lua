@@ -186,7 +186,7 @@ local Info = Instance.new("TextLabel", MainFrame)
 Info.Size = UDim2.new(1,0,0,20)
 Info.Position = UDim2.new(0,0,0.75,0)
 Info.BackgroundTransparency = 1
-Info.Text = "Z=Toggle | RMB=Aim"
+Info.Text = "K=Toggle | RMB=Aim"
 Info.Font = Enum.Font.Gotham
 Info.TextSize = 11
 Info.TextColor3 = Color3.fromRGB(200,200,200)
