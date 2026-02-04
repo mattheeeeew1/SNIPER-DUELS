@@ -6,16 +6,16 @@ local Camera = workspace.CurrentCamera
 local ESP_ENABLED = false
 local AIMBOT_ENABLED = false
 
-local FILL_COLOR_ENEMY = Color3.fromRGB(64, 64, 64)
+local FILL_COLOR_ENEMY = Color3.fromRGB(70, 227, 222)
 local FILL_COLOR_ALLY = Color3.fromRGB(0, 255, 0)
-local FILL_COLOR_NEUTRAL = Color3.fromRGB(64, 64, 64)
+local FILL_COLOR_NEUTRAL = Color3.fromRGB(70, 227, 222)
 
 local STORAGE_NAME = "System_Render_Cache"
 
 local AIM_PART = "UpperTorso"
-local AIM_SMOOTHNESS = 0.50
+local AIM_SMOOTHNESS = 1
 local MAX_AIM_DISTANCE = 400
-local AIM_FOV = 80
+local AIM_FOV = 60
 local AIM_OFFSET = Vector3.new(0, 0, 0)
 
 local function GetStorage()
