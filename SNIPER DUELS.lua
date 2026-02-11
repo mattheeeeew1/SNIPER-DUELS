@@ -83,7 +83,7 @@ local function GetClosestEnemy()
     for _, player in ipairs(Players:GetPlayers()) do
         if player ~= localPlayer and player.Character then
             if not IsAlly(player) then
-                local targetPart = player.Character:FindFirstChild(AIM_PART) or player.Character:FindFirstChild("Torso")
+                local targetPart = player.Character:FindFirstChild(AIM_PART) or player.Character:FindFirstChild("UpperTorso")
                 if targetPart then
                     local aimPos = targetPart.Position + AIM_OFFSET
                     local screenPos, onScreen = Camera:WorldToViewportPoint(aimPos)
