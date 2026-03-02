@@ -16,7 +16,7 @@ local AIM_PART = "UpperTorso"
 local AIM_SMOOTHNESS = 1
 local MAX_AIM_DISTANCE = 500
 local AIM_FOV = 100
-local AIM_OFFSET = Vector3.new(0, 0, 0)
+local AIM_OFFSET = Vector3.new(0, 0.7, 0)
 
 local function GetStorage()
     local s = workspace.Terrain:FindFirstChild(STORAGE_NAME)
